@@ -149,6 +149,14 @@ select option{background:#111;color:#fff}
 </div>
 
 <div class="content tab-content active" id="tab0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div style="display:flex;align-items:center;gap:8px">
+<button onclick="shiftQuestDate(-1)" style="background:none;border:none;color:var(--green);font-size:18px;cursor:pointer;padding:4px 8px">&lt;</button>
+<div id="questDateLabel" style="font-size:16px;font-weight:700;color:var(--green)"></div>
+<button onclick="shiftQuestDate(1)" style="background:none;border:none;color:var(--green);font-size:18px;cursor:pointer;padding:4px 8px">&gt;</button>
+</div>
+<button id="questTodayBtn" style="display:none;padding:6px 14px;background:var(--green-dim);border:1px solid var(--green);border-radius:6px;color:var(--green);font-size:12px;font-weight:600;cursor:pointer" onclick="switchQuestToToday()">TODAY</button>
+</div>
 <div class="section-card"><div class="card-header"><div class="card-title">MEAL</div><div class="card-value" style="color:var(--yellow)" id="mealTotalDisplay">0 kcal</div></div>
 <div class="meal-grid"><button class="meal-btn" data-meal="breakfast" onclick="openMealModal('breakfast')">朝食<span class="meal-kcal" id="kcal-breakfast">--</span></button>
 <button class="meal-btn" data-meal="lunch" onclick="openMealModal('lunch')">昼食<span class="meal-kcal" id="kcal-lunch">--</span></button>
@@ -225,7 +233,7 @@ lunch:[{name:'プロテイン',kcal:120},{name:'ラーメン',kcal:700},{name:'�
 dinner:[{name:'プロテイン',kcal:120},{name:'焼肉',kcal:800},{name:'居酒屋',kcal:700},{name:'自炊（軽め）',kcal:500},{name:'自炊（普通）',kcal:650},{name:'外食',kcal:750},{name:'鍋',kcal:500},{name:'寿司',kcal:600},{name:'コンビニ',kcal:550}],
 snack:[{name:'プロテイン',kcal:120},{name:'プロテインバー',kcal:150},{name:'お菓子',kcal:200},{name:'フルーツ',kcal:80},{name:'ナッツ',kcal:150},{name:'アイス',kcal:250},{name:'ドリンク(甘)',kcal:150},{name:'炭酸水',kcal:0}]};
 let data={records:{},weights:{}},quest={},profile={xp:0,level:1,totalXP:0,maxStreak:0};
-let currentTab=0,selectedDate=getToday(),calYear,calMonth,graphType='weight',graphRange=30,currentMealType=null;
+let currentTab=0,selectedDate=getToday(),questDate=getToday(),calYear,calMonth,graphType='weight',graphRange=30,currentMealType=null;
 
 function getToday(){const d=new Date();return d.getFullYear()+'-'+S(d.getMonth()+1)+'-'+S(d.getDate())}
 function S(n){return String(n).padStart(2,'0')}
@@ -279,39 +287,44 @@ currentTab=+btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(functi
 document.querySelectorAll('.tab-content').forEach(function(c,i){if(i===currentTab)c.classList.add('active');else c.classList.remove('active')});
 if(currentTab===0)updateQuest();if(currentTab===1)loadRecordForm();if(currentTab===2)renderCalendar();if(currentTab===3)renderChart();if(currentTab===4){document.getElementById('wtDate').value=selectedDate;renderWtList()}})});
 
-function updateQuest(){var today=getQD(),totalKcal=0;
+function updateQuest(){var qd=getQD(questDate),totalKcal=0;
+var isToday=questDate===getToday();
+var dp=questDate.split('-');document.getElementById('questDateLabel').textContent=(+dp[1])+'月'+(+dp[2])+'日'+(isToday?' (TODAY)':'');
+document.getElementById('questTodayBtn').style.display=isToday?'none':'block';
 ['breakfast','lunch','dinner','snack'].forEach(function(m){var btn=document.querySelector('.meal-btn[data-meal="'+m+'"]'),el=document.getElementById('kcal-'+m);
-if(today.meals&&today.meals[m]!==undefined){btn.classList.add('logged');el.textContent=today.meals[m]+' kcal';totalKcal+=today.meals[m]}else{btn.classList.remove('logged');el.textContent='--'}});
+if(qd.meals&&qd.meals[m]!==undefined){btn.classList.add('logged');el.textContent=qd.meals[m]+' kcal';totalKcal+=qd.meals[m]}else{btn.classList.remove('logged');el.textContent='--'}});
 document.getElementById('mealTotalDisplay').textContent=totalKcal+' kcal';
-document.getElementById('waterDisplayNum').textContent=((today.water||0)*200);renderWaterCups(today.water||0);
-var walkCount=today.walkSteps||0;document.getElementById('walkDisplayNum').textContent=(walkCount*1000);renderWalkCups(walkCount);
+document.getElementById('waterDisplayNum').textContent=((qd.water||0)*200);renderWaterCups(qd.water||0);
+var walkCount=qd.walkSteps||0;document.getElementById('walkDisplayNum').textContent=(walkCount*1000);renderWalkCups(walkCount);
 updateStats()}
+function switchQuestToToday(){questDate=getToday();updateQuest()}
+function shiftQuestDate(dir){var p=questDate.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()+dir);questDate=d.getFullYear()+'-'+S(d.getMonth()+1)+'-'+S(d.getDate());updateQuest()}
 
 function renderWaterCups(count){var c=document.getElementById('waterCups');c.innerHTML='';for(var i=0;i<10;i++){var cup=document.createElement('div');cup.className='water-cup'+(i<count?' filled':'');cup.textContent=(i+1);(function(idx){cup.onclick=function(){tapWater(idx+1)}})(i);c.appendChild(cup)}}
-function tapWater(n){var today=getQD(),prev=today.water||0;
-if(n===prev){today.water=n-1;today.xpEarned=(today.xpEarned||0)-5;saveQuest();changeXP(-5)}
-else if(n>prev){var added=n-prev;today.water=n;var xp=added*5;today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
-else{var removed=prev-n;today.water=n;var xp=-(removed*5);today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+function tapWater(n){var qd=getQD(questDate),prev=qd.water||0;
+if(n===prev){qd.water=n-1;qd.xpEarned=(qd.xpEarned||0)-5;saveQuest();changeXP(-5)}
+else if(n>prev){var added=n-prev;qd.water=n;var xp=added*5;qd.xpEarned=(qd.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+else{var removed=prev-n;qd.water=n;var xp=-(removed*5);qd.xpEarned=(qd.xpEarned||0)+xp;saveQuest();changeXP(xp)}
 updateQuest()}
 
 function openMealModal(type){currentMealType=type;document.getElementById('modalTitle').textContent=MEAL_NAMES[type]+' MENU';
-var grid=document.getElementById('menuGrid');grid.innerHTML='';var today=getQD();
-var currentTotal=0;if(today.meals&&today.meals[type]!==undefined){currentTotal=today.meals[type];
+var grid=document.getElementById('menuGrid');grid.innerHTML='';var qd=getQD(questDate);
+var currentTotal=0;if(qd.meals&&qd.meals[type]!==undefined){currentTotal=qd.meals[type];
 var cd=document.createElement('div');cd.className='menu-item';cd.style.borderColor='#ef4444';cd.style.color='#ef4444';cd.innerHTML='CLEAR<span class="kcal" style="color:#ef4444">取消 ('+currentTotal+' kcal)</span>';cd.onclick=function(){clearMeal(type)};grid.appendChild(cd)}
 MENUS[type].forEach(function(item){var div=document.createElement('div');div.className='menu-item';div.innerHTML=item.name+'<span class="kcal">+'+item.kcal+' kcal</span>';div.onclick=function(){addMealItem(type,item.kcal)};grid.appendChild(div)});
 document.getElementById('customKcal').value='';document.getElementById('mealModal').classList.add('show')}
 function closeMealModal(){document.getElementById('mealModal').classList.remove('show');currentMealType=null}
-function addMealItem(type,kcal){var today=getQD();if(!today.meals)today.meals={};var wasLogged=today.meals[type]!==undefined;
-if(!wasLogged){today.meals[type]=0;today.xpEarned=(today.xpEarned||0)+10;changeXP(10)}
-today.meals[type]+=kcal;saveQuest();updateQuest();updateHeader();openMealModal(type)}
-function clearMeal(type){var today=getQD();if(today.meals&&today.meals[type]!==undefined){delete today.meals[type];today.xpEarned=(today.xpEarned||0)-10;saveQuest();changeXP(-10)}closeMealModal();updateQuest();updateHeader()}
+function addMealItem(type,kcal){var qd=getQD(questDate);if(!qd.meals)qd.meals={};var wasLogged=qd.meals[type]!==undefined;
+if(!wasLogged){qd.meals[type]=0;qd.xpEarned=(qd.xpEarned||0)+10;changeXP(10)}
+qd.meals[type]+=kcal;saveQuest();updateQuest();updateHeader();openMealModal(type)}
+function clearMeal(type){var qd=getQD(questDate);if(qd.meals&&qd.meals[type]!==undefined){delete qd.meals[type];qd.xpEarned=(qd.xpEarned||0)-10;saveQuest();changeXP(-10)}closeMealModal();updateQuest();updateHeader()}
 function logCustomMeal(){var kcal=parseInt(document.getElementById('customKcal').value);if(isNaN(kcal))return;addMealItem(currentMealType,kcal)}
 
 function renderWalkCups(count){var c=document.getElementById('walkCups');c.innerHTML='';for(var i=0;i<10;i++){var cup=document.createElement('div');cup.className='water-cup'+(i<count?' walk-filled':'');cup.textContent=((i+1)*1000);cup.style.fontSize='10px';(function(idx){cup.onclick=function(){tapWalk(idx+1)}})(i);c.appendChild(cup)}}
-function tapWalk(n){var today=getQD(),prev=today.walkSteps||0;
-if(n===prev){today.walkSteps=n-1;today.xpEarned=(today.xpEarned||0)-10;saveQuest();changeXP(-10)}
-else if(n>prev){var added=n-prev;today.walkSteps=n;var xp=added*10;today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
-else{var removed=prev-n;today.walkSteps=n;var xp=-(removed*10);today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+function tapWalk(n){var qd=getQD(questDate),prev=qd.walkSteps||0;
+if(n===prev){qd.walkSteps=n-1;qd.xpEarned=(qd.xpEarned||0)-10;saveQuest();changeXP(-10)}
+else if(n>prev){var added=n-prev;qd.walkSteps=n;var xp=added*10;qd.xpEarned=(qd.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+else{var removed=prev-n;qd.walkSteps=n;var xp=-(removed*10);qd.xpEarned=(qd.xpEarned||0)+xp;saveQuest();changeXP(xp)}
 updateQuest()}
 
 function loadRecordForm(){document.getElementById('recDate').value=selectedDate;var rec=data.records[selectedDate];
@@ -340,7 +353,7 @@ else if(loc==='home')inner+='<span class="cal-tag" style="color:var(--yellow)">H
 if(!loc&&qd&&qd.walkSteps&&qd.walkSteps>0){inner+='<span class="cal-tag" style="color:var(--purple)">'+qd.walkSteps+'K</span>'}
 if(rec&&rec.weight)inner+='<span class="cal-wt">'+rec.weight+'</span>';
 var cell=document.createElement('div');cell.className=cls;cell.innerHTML=inner;
-(function(k){cell.addEventListener('click',function(){selectedDate=k;loadRecordForm();document.querySelectorAll('.tab-btn')[1].click()})})(key);grid.appendChild(cell)}}
+(function(k){cell.addEventListener('click',function(){selectedDate=k;questDate=k;loadRecordForm();document.querySelectorAll('.tab-btn')[0].click()})})(key);grid.appendChild(cell)}}
 document.getElementById('calPrev').addEventListener('click',function(){calMonth--;if(calMonth<1){calMonth=12;calYear--}renderCalendar()});
 document.getElementById('calNext').addEventListener('click',function(){calMonth++;if(calMonth>12){calMonth=1;calYear++}renderCalendar()});
 
