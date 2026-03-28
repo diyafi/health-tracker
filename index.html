@@ -7,32 +7,44 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Health Tracker">
 <meta name="theme-color" content="#000000">
-<title>HEALTH TRACKER</title>
+<title>J's HEALTH TRACKER</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--green:#22c55e;--green2:#4ade80;--green-dim:rgba(34,197,94,0.15);--green-border:rgba(34,197,94,0.4);--bg:#000;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:#e8e8e8;--text2:#aaa;--text3:#888;--white:#fff}
+:root{--green:#22c55e;--green2:#4ade80;--green-dim:rgba(34,197,94,0.15);--green-border:rgba(34,197,94,0.4);--pink:#ff69b4;--pink-dim:rgba(255,105,180,0.15);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.15);--blue:#38bdf8;--blue-dim:rgba(56,189,248,0.15);--purple:#a78bfa;--purple-dim:rgba(167,139,250,0.15);--bg:#000;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:#e8e8e8;--text2:#aaa;--text3:#888;--white:#fff}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,'Hiragino Sans','Noto Sans JP',sans-serif;max-width:480px;margin:0 auto;min-height:100vh;overflow-x:hidden}
 input,select,button{font-family:inherit}
 input[type="number"],input[type="date"],input[type="text"],select{width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid var(--border2);border-radius:8px;color:var(--white);font-size:16px;outline:none;-webkit-appearance:none}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 select option{background:#111;color:#fff}
-.header{padding:28px 20px 18px;text-align:center;border-bottom:1px solid var(--border)}
-.header h1{font-size:20px;font-weight:800;letter-spacing:3px;color:var(--green)}
-.header p{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:1px}
-.stats-bar{display:flex;gap:8px;padding:16px 12px;overflow-x:auto}
-.stat-card{flex:1;min-width:100px;background:var(--card);border-radius:12px;padding:14px 10px 10px;text-align:center;border:1px solid var(--border)}
-.stat-value{font-size:22px;font-weight:700;color:var(--white)}
-.stat-unit{font-size:13px;font-weight:400;color:var(--text3)}
-.stat-label{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.5px}
-.progress-bg{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:8px;overflow:hidden}
+.header{padding:20px 16px 14px;border-bottom:1px solid var(--border)}
+.header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.app-title{font-size:18px;font-weight:800;letter-spacing:3px;color:var(--green)}
+.date-display{font-size:11px;color:var(--text3);letter-spacing:1px}
+.level-row{display:flex;align-items:center;gap:12px}
+.level-box{text-align:center}
+.level-label{font-size:9px;color:var(--text3);letter-spacing:2px;font-weight:600}
+.level-num{font-size:26px;font-weight:900;color:var(--green);line-height:1}
+.xp-box{flex:1}
+.xp-info{display:flex;justify-content:space-between;margin-bottom:4px}
+.xp-text{font-size:11px;color:var(--text3)}
+.xp-text b{color:var(--green)}
+.streak-text{font-size:11px;color:var(--yellow);font-weight:700}
+.xp-bar-bg{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:3px;transition:width .5s ease}
+.stats-bar{display:flex;gap:6px;padding:12px 10px;overflow-x:auto}
+.stat-card{flex:1;min-width:72px;background:var(--card);border-radius:10px;padding:10px 6px 8px;text-align:center;border:1px solid var(--border)}
+.stat-value{font-size:20px;font-weight:700;color:var(--white)}
+.stat-unit{font-size:12px;font-weight:400;color:var(--text3)}
+.stat-label{font-size:9px;color:var(--text3);margin-top:2px;letter-spacing:.5px}
+.progress-bg{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:6px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:2px;transition:width .5s ease}
-.tab-bar{display:flex;padding:0 12px;gap:4px;border-bottom:1px solid var(--border)}
-.tab-btn{flex:1;padding:12px 0;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab-bar{display:flex;padding:0 8px;gap:2px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tab-btn{flex:none;padding:10px 10px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
 .tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
-.content{padding:16px}
+.content{padding:14px}
 .label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;letter-spacing:.5px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-.form-group{margin-bottom:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.form-group{margin-bottom:10px}
 .train-btns{display:flex;gap:8px}
 .train-btn{flex:1;padding:10px 8px;background:var(--card);border:1px solid var(--border2);border-radius:8px;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
 .train-btn.active{background:var(--green-dim);border-color:var(--green);color:var(--green)}
@@ -40,7 +52,7 @@ select option{background:#111;color:#fff}
 .save-btn:active{opacity:.8}
 .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--green);color:#000;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:700;transition:transform .3s ease;z-index:999;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
-.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .cal-nav button{background:none;border:none;color:var(--green);font-size:18px;cursor:pointer;padding:8px 12px}
 .cal-nav span{font-size:16px;font-weight:700;color:var(--white)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
@@ -49,11 +61,11 @@ select option{background:#111;color:#fff}
 .cal-cell.today{border:1px solid var(--green-border)}
 .cal-cell.selected{background:var(--green-dim)}
 .cal-cell .day-num{font-size:12px;font-weight:600;color:#ddd}
-.cal-cell .cal-tag{font-size:8px;color:var(--green);font-weight:700}
+.cal-cell .cal-tag{font-size:8px;font-weight:700}
 .cal-cell .cal-wt{font-size:8px;color:var(--green);font-weight:600}
-.graph-controls{display:flex;justify-content:space-between;margin-bottom:16px;gap:8px}
+.graph-controls{display:flex;justify-content:space-between;margin-bottom:14px;gap:8px}
 .graph-btns{display:flex;gap:4px}
-.graph-btn{padding:6px 12px;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer}
+.graph-btn{padding:6px 10px;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer}
 .graph-btn.active{background:var(--green-dim);border-color:var(--green);color:var(--green)}
 .chart-wrap{background:rgba(255,255,255,0.02);border-radius:12px;padding:12px 8px;border:1px solid rgba(255,255,255,0.04)}
 .legend{display:flex;gap:16px;justify-content:center;margin-top:8px}
@@ -63,265 +75,328 @@ select option{background:#111;color:#fff}
 .wt-name{font-size:14px;font-weight:700;color:var(--white)}
 .wt-detail{font-size:12px;color:var(--text2)}
 .wt-del{background:none;border:none;color:#666;font-size:16px;cursor:pointer;padding:4px 8px}
-.footer{padding:24px 16px 40px;text-align:center}
-.reset-btn{background:none;border:1px solid rgba(255,255,255,0.08);color:#666;font-size:11px;padding:8px 16px;border-radius:6px;cursor:pointer}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.export-btns{display:flex;gap:8px;margin-bottom:16px}
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.card-title{font-size:14px;font-weight:700;color:var(--green)}
+.card-value{font-size:16px;font-weight:700}
+.meal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.meal-btn{padding:14px 8px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.meal-btn:active{transform:scale(0.95)}
+.meal-btn.logged{border-color:var(--green);background:var(--green-dim);color:var(--green)}
+.meal-btn .meal-kcal{display:block;font-size:11px;color:var(--text3);margin-top:2px;font-weight:400}
+.meal-btn.logged .meal-kcal{color:var(--green)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:flex;align-items:flex-end}
+.modal{background:#111;border-radius:16px 16px 0 0;width:100%;max-height:75vh;overflow-y:auto;padding:16px}
+.modal-title{font-size:15px;font-weight:700;color:var(--green);margin-bottom:14px;text-align:center;letter-spacing:1px}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.menu-item{padding:12px 8px;border-radius:8px;border:1px solid var(--border2);background:var(--bg);color:var(--text);font-size:13px;text-align:center;cursor:pointer;transition:all .15s}
+.menu-item:active{transform:scale(0.95);background:var(--green-dim)}
+.menu-item .kcal{font-size:10px;color:var(--yellow);display:block;margin-top:4px;font-weight:600}
+.custom-kcal-row{display:flex;gap:8px;margin-bottom:10px}
+.custom-kcal-input{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border2);background:var(--bg);color:var(--white);font-size:16px;text-align:center;outline:none}
+.custom-kcal-input:focus{border-color:var(--green)}
+.btn-confirm{padding:10px 18px;border-radius:8px;border:none;background:var(--green);color:#000;font-weight:700;font-size:14px;cursor:pointer}
+.btn-cancel{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border2);background:none;color:var(--text3);font-size:14px;cursor:pointer}
+.water-cups{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}
+.water-cup{height:44px;border-radius:8px;border:2px solid var(--border2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text3);cursor:pointer;transition:all .2s}
+.water-cup.filled{border-color:var(--blue);background:var(--blue-dim);color:var(--blue)}
+.water-cup.walk-filled{border-color:var(--purple);background:var(--purple-dim);color:var(--purple)}
+.water-cup:active{transform:scale(0.92)}
+.exercise-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.exercise-btn{padding:14px 8px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.exercise-btn:active{transform:scale(0.95)}
+.exercise-btn.logged{border-color:var(--purple);background:var(--purple-dim);color:var(--purple)}
+.exercise-btn .ex-xp{display:block;font-size:10px;color:var(--text3);margin-top:2px;font-weight:400}
+.exercise-btn.logged .ex-xp{color:var(--purple)}
+.gym-counter{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0}
+.gym-count-num{font-size:28px;font-weight:900;color:var(--pink)}
+.gym-target{font-size:13px;color:var(--text3)}
+.xp-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:28px;font-weight:900;z-index:300;pointer-events:none;transition:all .4s cubic-bezier(0.34,1.56,0.64,1)}
+.xp-popup.show{transform:translate(-50%,-50%) scale(1)}
+.xp-popup.hide{transform:translate(-50%,-80%) scale(0.5);opacity:0}
+.levelup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;align-items:center;justify-content:center;flex-direction:column}
+.levelup-overlay.show{display:flex}
+.levelup-label{font-size:14px;color:var(--yellow);letter-spacing:4px;font-weight:700;margin-bottom:4px}
+.levelup-num{font-size:64px;font-weight:900;color:var(--green);animation:lvPulse 1s ease infinite alternate;text-shadow:0 0 30px var(--green-dim)}
+@keyframes lvPulse{from{transform:scale(1)}to{transform:scale(1.05)}}
+.footer{padding:20px 14px 40px;text-align:center}
+.export-btns{display:flex;gap:8px;margin-bottom:14px}
 .export-btn{flex:1;padding:8px;background:var(--card);border:1px solid var(--border2);border-radius:8px;color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;text-align:center}
+.reset-btn{background:none;border:1px solid rgba(255,255,255,0.08);color:#666;font-size:11px;padding:8px 16px;border-radius:6px;cursor:pointer}
+.tab-content{display:none}.tab-content.active{display:block}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>HEALTH TRACKER</h1>
-  <p>キックボクシング × 健康管理</p>
-</div>
+<div class="header"><div class="header-row"><div class="app-title">HEALTH TRACKER</div><div class="date-display" id="dateDisplay"></div></div>
+<div class="level-row"><div class="level-box"><div class="level-label">LEVEL</div><div class="level-num" id="levelBadge">1</div></div>
+<div class="xp-box"><div class="xp-info"><div class="xp-text">XP <b id="xpCurrent">0</b> / <span id="xpNext">100</span></div><div class="streak-text" id="streakText">0 days</div></div>
+<div class="xp-bar-bg"><div class="xp-bar-fill" id="xpBar" style="width:0%"></div></div></div></div></div>
+
 <div class="stats-bar">
-  <div class="stat-card">
-    <div class="stat-value"><span id="gymCount">0</span><span class="stat-unit">/12</span></div>
-    <div class="stat-label">ジム回数</div>
-    <div class="progress-bg"><div class="progress-fill" id="gymProgress" style="width:0%"></div></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-value" id="trainTotal">0</div>
-    <div class="stat-label">トレーニング合計</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-value" id="todayWeight">−</div>
-    <div class="stat-label">今日の体重</div>
-  </div>
+<div class="stat-card"><div class="stat-value" style="color:var(--pink)"><span id="gymCountStat">0</span><span class="stat-unit">/12</span></div><div class="stat-label">GYM</div><div class="progress-bg"><div class="progress-fill" id="gymProgress" style="width:0%"></div></div></div>
+<div class="stat-card"><div class="stat-value" style="color:var(--pink)" id="trainTotal">0</div><div class="stat-label">TRAIN</div></div>
+<div class="stat-card"><div class="stat-value" style="color:var(--pink)" id="todayWeightStat">--</div><div class="stat-label">WEIGHT</div></div>
+<div class="stat-card"><div class="stat-value" style="color:var(--yellow)"><span id="totalKcalStat">0</span><span class="stat-unit">/2200</span></div><div class="stat-label">KCAL</div></div>
 </div>
+
 <div class="tab-bar">
-  <button class="tab-btn active" data-tab="0">記録</button>
-  <button class="tab-btn" data-tab="1">カレンダー</button>
-  <button class="tab-btn" data-tab="2">グラフ</button>
-  <button class="tab-btn" data-tab="3">ウェイト</button>
+<button class="tab-btn active" data-tab="0">Quest</button>
+<button class="tab-btn" data-tab="1">Record</button>
+<button class="tab-btn" data-tab="2">Calendar</button>
+<button class="tab-btn" data-tab="3">Graph</button>
+<button class="tab-btn" data-tab="4">Weight</button>
 </div>
+
 <div class="content tab-content active" id="tab0">
-  <div class="form-group">
-    <label class="label">日付</label>
-    <input type="date" id="recDate">
-  </div>
-  <div class="form-grid">
-    <div class="form-group"><label class="label">体重 (kg)</label><input type="number" step="0.1" placeholder="70.5" id="recWeight"></div>
-    <div class="form-group"><label class="label">最高血圧</label><input type="number" placeholder="120" id="recBpHigh"></div>
-    <div class="form-group"><label class="label">心拍数</label><input type="number" placeholder="72" id="recHr"></div>
-    <div class="form-group"><label class="label">最低血圧</label><input type="number" placeholder="80" id="recBpLow"></div>
-    <div class="form-group"><label class="label">握力 左 (kg)</label><input type="number" step="0.1" placeholder="35.0" id="recGripL"></div>
-    <div class="form-group"><label class="label">握力 右 (kg)</label><input type="number" step="0.1" placeholder="40.0" id="recGripR"></div>
-  </div>
-  <div class="form-group">
-    <label class="label">トレーニング</label>
-    <div class="train-btns">
-      <button class="train-btn active" data-loc="none">なし</button>
-      <button class="train-btn" data-loc="gym">ジム</button>
-      <button class="train-btn" data-loc="home">自宅</button>
-    </div>
-  </div>
-  <button class="save-btn" id="saveRecord">保存する</button>
+<div class="section-card"><div class="card-header"><div class="card-title">MEAL</div><div class="card-value" style="color:var(--yellow)" id="mealTotalDisplay">0 kcal</div></div>
+<div class="meal-grid"><button class="meal-btn" data-meal="breakfast" onclick="openMealModal('breakfast')">朝食<span class="meal-kcal" id="kcal-breakfast">--</span></button>
+<button class="meal-btn" data-meal="lunch" onclick="openMealModal('lunch')">昼食<span class="meal-kcal" id="kcal-lunch">--</span></button>
+<button class="meal-btn" data-meal="dinner" onclick="openMealModal('dinner')">夕食<span class="meal-kcal" id="kcal-dinner">--</span></button>
+<button class="meal-btn" data-meal="snack" onclick="openMealModal('snack')">間食<span class="meal-kcal" id="kcal-snack">--</span></button></div></div>
+
+<div class="section-card"><div class="card-header"><div class="card-title">WATER</div><div class="card-value" style="color:var(--blue)"><span id="waterDisplayNum">0</span> / 2000 ml</div></div>
+<div class="water-cups" id="waterCups"></div></div>
+
+<div class="section-card"><div class="card-header"><div class="card-title">WALKING</div><div class="card-value" style="color:var(--purple)"><span id="walkDisplayNum">0</span> / 10000 歩</div></div>
+<div class="water-cups" id="walkCups"></div></div>
 </div>
+
 <div class="content tab-content" id="tab1">
-  <div class="cal-nav">
-    <button id="calPrev">◀</button>
-    <span id="calTitle"></span>
-    <button id="calNext">▶</button>
-  </div>
-  <div class="cal-grid" id="calGrid"></div>
+<div class="form-group"><label class="label">Date</label><input type="date" id="recDate"></div>
+<div class="form-grid">
+<div class="form-group"><label class="label">体重 (kg)</label><input type="number" step="0.1" placeholder="70.5" id="recWeight"></div>
+<div class="form-group"><label class="label">最高血圧</label><input type="number" placeholder="120" id="recBpHigh"></div>
+<div class="form-group"><label class="label">心拍数</label><input type="number" placeholder="72" id="recHr"></div>
+<div class="form-group"><label class="label">最低血圧</label><input type="number" placeholder="80" id="recBpLow"></div>
+<div class="form-group"><label class="label">握力 kg 左</label><input type="number" step="0.1" placeholder="30.0" id="recGripL"></div>
+<div class="form-group"><label class="label">握力 kg 右</label><input type="number" step="0.1" placeholder="35.0" id="recGripR"></div>
 </div>
+<div class="form-group"><label class="label">Training</label><div class="train-btns">
+<button class="train-btn active" data-loc="none">なし</button>
+<button class="train-btn" data-loc="gym">GYM</button>
+<button class="train-btn" data-loc="home">HOME</button></div></div>
+<button class="save-btn" id="saveRecord">保存する (+10 XP)</button>
+</div>
+
 <div class="content tab-content" id="tab2">
-  <div class="graph-controls">
-    <div class="graph-btns" id="graphTypeBtns">
-      <button class="graph-btn active" data-type="weight">体重</button>
-      <button class="graph-btn" data-type="bp">血圧</button>
-      <button class="graph-btn" data-type="hr">心拍</button>
-      <button class="graph-btn" data-type="grip">握力</button>
-    </div>
-    <div class="graph-btns" id="graphRangeBtns">
-      <button class="graph-btn" data-range="7">1週</button>
-      <button class="graph-btn active" data-range="30">1月</button>
-      <button class="graph-btn" data-range="90">3月</button>
-    </div>
-  </div>
-  <div class="chart-wrap">
-    <canvas id="chart"></canvas>
-    <div class="legend" id="legend"></div>
-  </div>
-</div>
+<div class="cal-nav"><button id="calPrev">&lt;</button><span id="calTitle"></span><button id="calNext">&gt;</button></div>
+<div class="cal-grid" id="calGrid"></div></div>
+
 <div class="content tab-content" id="tab3">
-  <div class="form-group"><label class="label">日付</label><input type="date" id="wtDate"></div>
-  <div class="form-grid">
-    <div class="form-group"><label class="label">種目</label><select id="wtExercise"></select></div>
-    <div class="form-group" id="wtCustomWrap" style="display:none"><label class="label">種目名</label><input type="text" placeholder="種目名" id="wtCustom"></div>
-    <div class="form-group"><label class="label">重量 (kg)</label><input type="number" step="0.5" placeholder="60" id="wtWeight"></div>
-    <div class="form-group"><label class="label">セット数</label><input type="number" placeholder="3" id="wtSets"></div>
-    <div class="form-group"><label class="label">レップ数</label><input type="number" placeholder="10" id="wtReps"></div>
-  </div>
-  <button class="save-btn" id="addWeight">追加する</button>
-  <div id="wtList" style="margin-top:20px"></div>
-</div>
-<div class="footer">
-  <div class="export-btns">
-    <button class="export-btn" id="exportBtn">データ書き出し (JSON)</button>
-    <label class="export-btn" style="cursor:pointer">データ読み込み<input type="file" accept=".json" id="importBtn" style="display:none"></label>
-  </div>
-  <button class="reset-btn" id="resetBtn">データリセット</button>
-</div>
+<div class="graph-controls"><div class="graph-btns" id="graphTypeBtns">
+<button class="graph-btn active" data-type="weight">体重</button><button class="graph-btn" data-type="bp">血圧</button><button class="graph-btn" data-type="hr">心拍</button><button class="graph-btn" data-type="grip">握力</button></div>
+<div class="graph-btns" id="graphRangeBtns"><button class="graph-btn" data-range="7">1週</button><button class="graph-btn active" data-range="30">1月</button><button class="graph-btn" data-range="90">3月</button></div></div>
+<div class="chart-wrap"><canvas id="chart"></canvas><div class="legend" id="legend"></div></div></div>
+
+<div class="content tab-content" id="tab4">
+<div class="form-group"><label class="label">Date</label><input type="date" id="wtDate"></div>
+<div class="form-grid">
+<div class="form-group"><label class="label">種目</label><select id="wtExercise"></select></div>
+<div class="form-group" id="wtCustomWrap" style="display:none"><label class="label">種目名</label><input type="text" placeholder="種目名" id="wtCustom"></div>
+<div class="form-group"><label class="label">重量 (kg)</label><input type="number" step="0.5" placeholder="60" id="wtWeight"></div>
+<div class="form-group"><label class="label">セット数</label><input type="number" placeholder="3" id="wtSets"></div>
+<div class="form-group"><label class="label">レップ数</label><input type="number" placeholder="10" id="wtReps"></div></div>
+<button class="save-btn" id="addWeight">追加する</button>
+<div id="wtList" style="margin-top:16px"></div></div>
+
+<div class="footer"><div class="export-btns">
+<button class="export-btn" id="exportBtn">データ書き出し (JSON)</button>
+<label class="export-btn" style="cursor:pointer">データ読み込み<input type="file" accept=".json" id="importBtn" style="display:none"></label></div>
+<button class="reset-btn" id="resetBtn">データリセット</button></div>
+
 <div class="toast" id="toast"></div>
+<div class="modal-overlay" id="mealModal"><div class="modal">
+<div class="modal-title" id="modalTitle">MENU</div><div class="menu-grid" id="menuGrid"></div>
+<div class="custom-kcal-row"><input class="custom-kcal-input" id="customKcal" type="number" placeholder="kcal 手入力" inputmode="numeric">
+<button class="btn-confirm" onclick="logCustomMeal()">OK</button></div>
+<button class="btn-cancel" onclick="closeMealModal()">キャンセル</button></div></div>
+<div class="xp-popup" id="xpPopup"></div>
+<div class="levelup-overlay" id="levelUpOverlay" onclick="this.classList.remove('show')"><div class="levelup-label">LEVEL UP!</div><div class="levelup-num" id="levelUpNumber"></div></div>
+
 <script>
-const STORAGE_KEY='health-tracker-v1',GYM_GOAL=12;
-const EXERCISES=['ベンチプレス','スクワット','デッドリフト','ショルダープレス','ダンベルフライ','サイドレイズ','プッシュアップ','クランチ','プランク','プルアップ'];
-let data={records:{},weights:{}},currentTab=0,selectedDate=getToday(),calYear,calMonth,graphType='weight',graphRange=30;
+const STORAGE_KEY='health-tracker-v1',QUEST_KEY='hq-quest-v1',PROFILE_KEY='hq-profile-v1',GYM_GOAL=12;
+const EXERCISES=['ハンドグリップ','プッシュアップ','クランチ','プランク','プルアップ','---','ベンチプレス','スクワット','デッドリフト','ショルダープレス','ダンベルフライ','サイドレイズ','---'];
+const EXERCISE_XP={walking:10};
+const MEAL_NAMES={breakfast:'朝食',lunch:'昼食',dinner:'夕食',snack:'間食'};
+const MENUS={
+breakfast:[{name:'プロテイン',kcal:120},{name:'ご飯+味噌汁',kcal:350},{name:'パン+コーヒー',kcal:300},{name:'コンビニおにぎり',kcal:200},{name:'シリアル+牛乳',kcal:350},{name:'サラダ',kcal:100},{name:'食べてない',kcal:0}],
+lunch:[{name:'プロテイン',kcal:120},{name:'ラーメン',kcal:700},{name:'定食',kcal:650},{name:'コンビニ弁当',kcal:600},{name:'パスタ',kcal:550},{name:'カレー',kcal:700},{name:'サラダランチ',kcal:350},{name:'うどん・そば',kcal:400},{name:'牛丼',kcal:650}],
+dinner:[{name:'プロテイン',kcal:120},{name:'焼肉',kcal:800},{name:'居酒屋',kcal:700},{name:'自炊（軽め）',kcal:500},{name:'自炊（普通）',kcal:650},{name:'外食',kcal:750},{name:'鍋',kcal:500},{name:'寿司',kcal:600},{name:'コンビニ',kcal:550}],
+snack:[{name:'プロテイン',kcal:120},{name:'プロテインバー',kcal:150},{name:'お菓子',kcal:200},{name:'フルーツ',kcal:80},{name:'ナッツ',kcal:150},{name:'アイス',kcal:250},{name:'ドリンク(甘)',kcal:150},{name:'炭酸水',kcal:0}]};
+let data={records:{},weights:{}},quest={},profile={xp:0,level:1,totalXP:0,maxStreak:0};
+let currentTab=0,selectedDate=getToday(),calYear,calMonth,graphType='weight',graphRange=30,currentMealType=null;
+
 function getToday(){const d=new Date();return d.getFullYear()+'-'+S(d.getMonth()+1)+'-'+S(d.getDate())}
 function S(n){return String(n).padStart(2,'0')}
 function getMonthKey(s){return s.slice(0,7)}
 function formatDate(s){const p=s.split('-');return(+p[1])+'/'+(+p[2])}
-function loadData(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)data=JSON.parse(r)}catch(e){}}
-function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1500)}
-function updateStats(){
-  var now=new Date(),mk=now.getFullYear()+'-'+S(now.getMonth()+1),gym=0,train=0;
-  Object.keys(data.records).forEach(function(k){var v=data.records[k];if(getMonthKey(k)===mk){if(v.trainLoc==='gym'){gym++;train++}else if(v.trainLoc==='home')train++}});
-  document.getElementById('gymCount').textContent=gym;
-  document.getElementById('trainTotal').textContent=train;
-  document.getElementById('gymProgress').style.width=Math.min(100,Math.round(gym/GYM_GOAL*100))+'%';
-  var tr=data.records[getToday()];
-  document.getElementById('todayWeight').textContent=tr&&tr.weight?tr.weight+'kg':'−';
-}
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    currentTab=+btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-    btn.classList.add('active');
-    document.querySelectorAll('.tab-content').forEach(function(c,i){if(i===currentTab)c.classList.add('active');else c.classList.remove('active')});
-    if(currentTab===1)renderCalendar();
-    if(currentTab===2)renderChart();
-    if(currentTab===3){document.getElementById('wtDate').value=selectedDate;renderWtList()}
-  });
-});
-function loadRecordForm(){
-  document.getElementById('recDate').value=selectedDate;
-  var rec=data.records[selectedDate];
-  document.getElementById('recWeight').value=rec&&rec.weight!=null?rec.weight:'';
-  document.getElementById('recBpHigh').value=rec&&rec.bpHigh!=null?rec.bpHigh:'';
-  document.getElementById('recBpLow').value=rec&&rec.bpLow!=null?rec.bpLow:'';
-  document.getElementById('recHr').value=rec&&rec.heartRate!=null?rec.heartRate:'';
-  document.getElementById('recGripL').value=rec&&rec.gripL!=null?rec.gripL:'';
-  document.getElementById('recGripR').value=rec&&rec.gripR!=null?rec.gripR:'';
-  var loc=rec?rec.trainLoc:'none';
-  document.querySelectorAll('.train-btn').forEach(function(b){b.classList.toggle('active',b.dataset.loc===(loc||'none'))});
-}
+function loadAll(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)data=JSON.parse(r)}catch(e){}try{const r=localStorage.getItem(QUEST_KEY);if(r)quest=JSON.parse(r)}catch(e){}try{const r=localStorage.getItem(PROFILE_KEY);if(r)profile=JSON.parse(r)}catch(e){}}
+function saveHD(){localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+function saveQuest(){localStorage.setItem(QUEST_KEY,JSON.stringify(quest))}
+function saveProfile(){localStorage.setItem(PROFILE_KEY,JSON.stringify(profile))}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+function getQD(date){if(!date)date=getToday();if(!quest[date])quest[date]={meals:{},water:0,walkSteps:0,exercises:[],xpEarned:0};if(quest[date].walkSteps===undefined)quest[date].walkSteps=0;return quest[date]}
+function xpForLevel(lv){return 80+(lv-1)*40}
+
+function changeXP(amount){
+profile.xp+=amount;profile.totalXP+=amount;if(profile.totalXP<0)profile.totalXP=0;
+if(amount>0){while(profile.xp>=xpForLevel(profile.level)){profile.xp-=xpForLevel(profile.level);profile.level++;showLevelUp(profile.level)}}
+else{while(profile.xp<0&&profile.level>1){profile.level--;profile.xp+=xpForLevel(profile.level)}if(profile.xp<0)profile.xp=0}
+saveProfile();updateHeader();
+var el=document.getElementById('xpPopup'),txt=amount>0?'+'+amount+' XP':amount+' XP';
+el.textContent=txt;el.style.color=amount<0?'#ef4444':'var(--green)';el.className='xp-popup show';
+setTimeout(function(){el.className='xp-popup hide'},700);setTimeout(function(){el.className='xp-popup'},1200)}
+
+function showLevelUp(lv){document.getElementById('levelUpNumber').textContent=lv;document.getElementById('levelUpOverlay').classList.add('show');setTimeout(function(){document.getElementById('levelUpOverlay').classList.remove('show')},2500)}
+
+function calcStreak(){var streak=0,d=new Date(),todayQ=quest[getToday()],todayR=data.records[getToday()];
+var todayActive=(todayQ&&todayQ.xpEarned>0)||(todayR&&(todayR.weight||(todayR.trainLoc&&todayR.trainLoc!=='none')));
+if(!todayActive)d.setDate(d.getDate()-1);
+while(true){var k=d.getFullYear()+'-'+S(d.getMonth()+1)+'-'+S(d.getDate()),qd=quest[k],rd=data.records[k];
+var active=(qd&&qd.xpEarned>0)||(rd&&(rd.weight||(rd.trainLoc&&rd.trainLoc!=='none')));
+if(active){streak++;d.setDate(d.getDate()-1)}else break}
+if(streak>profile.maxStreak){profile.maxStreak=streak;saveProfile()}return streak}
+
+function updateHeader(){var needed=xpForLevel(profile.level);
+document.getElementById('levelBadge').textContent=profile.level;
+document.getElementById('xpCurrent').textContent=profile.xp;
+document.getElementById('xpNext').textContent=needed;
+document.getElementById('xpBar').style.width=Math.round(profile.xp/needed*100)+'%';
+document.getElementById('streakText').textContent=calcStreak()+' days';
+var now=new Date();document.getElementById('dateDisplay').textContent=now.getFullYear()+'.'+S(now.getMonth()+1)+'.'+S(now.getDate())}
+
+function updateStats(){var now=new Date(),mk=now.getFullYear()+'-'+S(now.getMonth()+1),gym=0,train=0;
+Object.keys(data.records).forEach(function(k){var v=data.records[k];if(getMonthKey(k)===mk){if(v.trainLoc==='gym'){gym++;train++}else if(v.trainLoc==='home')train++}});
+document.getElementById('gymCountStat').textContent=gym;document.getElementById('trainTotal').textContent=train;
+document.getElementById('gymProgress').style.width=Math.min(100,Math.round(gym/GYM_GOAL*100))+'%';
+var tr=data.records[getToday()];document.getElementById('todayWeightStat').textContent=tr&&tr.weight?tr.weight+'kg':'--';
+var todayQ=quest[getToday()],totalKcal=0;if(todayQ&&todayQ.meals)Object.values(todayQ.meals).forEach(function(v){totalKcal+=v});
+document.getElementById('totalKcalStat').textContent=totalKcal}
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){btn.addEventListener('click',function(){
+currentTab=+btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');
+document.querySelectorAll('.tab-content').forEach(function(c,i){if(i===currentTab)c.classList.add('active');else c.classList.remove('active')});
+if(currentTab===0)updateQuest();if(currentTab===1)loadRecordForm();if(currentTab===2)renderCalendar();if(currentTab===3)renderChart();if(currentTab===4){document.getElementById('wtDate').value=selectedDate;renderWtList()}})});
+
+function updateQuest(){var today=getQD(),totalKcal=0;
+['breakfast','lunch','dinner','snack'].forEach(function(m){var btn=document.querySelector('.meal-btn[data-meal="'+m+'"]'),el=document.getElementById('kcal-'+m);
+if(today.meals&&today.meals[m]!==undefined){btn.classList.add('logged');el.textContent=today.meals[m]+' kcal';totalKcal+=today.meals[m]}else{btn.classList.remove('logged');el.textContent='--'}});
+document.getElementById('mealTotalDisplay').textContent=totalKcal+' kcal';
+document.getElementById('waterDisplayNum').textContent=((today.water||0)*200);renderWaterCups(today.water||0);
+var walkCount=today.walkSteps||0;document.getElementById('walkDisplayNum').textContent=(walkCount*1000);renderWalkCups(walkCount);
+updateStats()}
+
+function renderWaterCups(count){var c=document.getElementById('waterCups');c.innerHTML='';for(var i=0;i<10;i++){var cup=document.createElement('div');cup.className='water-cup'+(i<count?' filled':'');cup.textContent=(i+1);(function(idx){cup.onclick=function(){tapWater(idx+1)}})(i);c.appendChild(cup)}}
+function tapWater(n){var today=getQD(),prev=today.water||0;
+if(n===prev){today.water=n-1;today.xpEarned=(today.xpEarned||0)-5;saveQuest();changeXP(-5)}
+else if(n>prev){var added=n-prev;today.water=n;var xp=added*5;today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+else{var removed=prev-n;today.water=n;var xp=-(removed*5);today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+updateQuest()}
+
+function openMealModal(type){currentMealType=type;document.getElementById('modalTitle').textContent=MEAL_NAMES[type]+' MENU';
+var grid=document.getElementById('menuGrid');grid.innerHTML='';var today=getQD();
+var currentTotal=0;if(today.meals&&today.meals[type]!==undefined){currentTotal=today.meals[type];
+var cd=document.createElement('div');cd.className='menu-item';cd.style.borderColor='#ef4444';cd.style.color='#ef4444';cd.innerHTML='CLEAR<span class="kcal" style="color:#ef4444">取消 ('+currentTotal+' kcal)</span>';cd.onclick=function(){clearMeal(type)};grid.appendChild(cd)}
+MENUS[type].forEach(function(item){var div=document.createElement('div');div.className='menu-item';div.innerHTML=item.name+'<span class="kcal">+'+item.kcal+' kcal</span>';div.onclick=function(){addMealItem(type,item.kcal)};grid.appendChild(div)});
+document.getElementById('customKcal').value='';document.getElementById('mealModal').classList.add('show')}
+function closeMealModal(){document.getElementById('mealModal').classList.remove('show');currentMealType=null}
+function addMealItem(type,kcal){var today=getQD();if(!today.meals)today.meals={};var wasLogged=today.meals[type]!==undefined;
+if(!wasLogged){today.meals[type]=0;today.xpEarned=(today.xpEarned||0)+10;changeXP(10)}
+today.meals[type]+=kcal;saveQuest();updateQuest();updateHeader();openMealModal(type)}
+function clearMeal(type){var today=getQD();if(today.meals&&today.meals[type]!==undefined){delete today.meals[type];today.xpEarned=(today.xpEarned||0)-10;saveQuest();changeXP(-10)}closeMealModal();updateQuest();updateHeader()}
+function logCustomMeal(){var kcal=parseInt(document.getElementById('customKcal').value);if(isNaN(kcal))return;addMealItem(currentMealType,kcal)}
+
+function renderWalkCups(count){var c=document.getElementById('walkCups');c.innerHTML='';for(var i=0;i<10;i++){var cup=document.createElement('div');cup.className='water-cup'+(i<count?' walk-filled':'');cup.textContent=((i+1)*1000);cup.style.fontSize='10px';(function(idx){cup.onclick=function(){tapWalk(idx+1)}})(i);c.appendChild(cup)}}
+function tapWalk(n){var today=getQD(),prev=today.walkSteps||0;
+if(n===prev){today.walkSteps=n-1;today.xpEarned=(today.xpEarned||0)-10;saveQuest();changeXP(-10)}
+else if(n>prev){var added=n-prev;today.walkSteps=n;var xp=added*10;today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+else{var removed=prev-n;today.walkSteps=n;var xp=-(removed*10);today.xpEarned=(today.xpEarned||0)+xp;saveQuest();changeXP(xp)}
+updateQuest()}
+
+function loadRecordForm(){document.getElementById('recDate').value=selectedDate;var rec=data.records[selectedDate];
+document.getElementById('recWeight').value=rec&&rec.weight!=null?rec.weight:'';document.getElementById('recBpHigh').value=rec&&rec.bpHigh!=null?rec.bpHigh:'';
+document.getElementById('recBpLow').value=rec&&rec.bpLow!=null?rec.bpLow:'';document.getElementById('recHr').value=rec&&rec.heartRate!=null?rec.heartRate:'';
+document.getElementById('recGripL').value=rec&&rec.gripL!=null?rec.gripL:'';document.getElementById('recGripR').value=rec&&rec.gripR!=null?rec.gripR:'';
+var loc=rec?rec.trainLoc:'none';document.querySelectorAll('.train-btn').forEach(function(b){b.classList.toggle('active',b.dataset.loc===(loc||'none'))})}
 document.getElementById('recDate').addEventListener('change',function(e){selectedDate=e.target.value;loadRecordForm()});
-document.querySelectorAll('.train-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){document.querySelectorAll('.train-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active')});
-});
-document.getElementById('saveRecord').addEventListener('click',function(){
-  var w=document.getElementById('recWeight').value,bh=document.getElementById('recBpHigh').value,bl=document.getElementById('recBpLow').value,hr=document.getElementById('recHr').value,gripL=document.getElementById('recGripL').value,gripR=document.getElementById('recGripR').value;
-  var loc=document.querySelector('.train-btn.active').dataset.loc;
-  data.records[selectedDate]={weight:w?parseFloat(w):null,bpHigh:bh?parseInt(bh):null,bpLow:bl?parseInt(bl):null,heartRate:hr?parseInt(hr):null,gripL:gripL?parseFloat(gripL):null,gripR:gripR?parseFloat(gripR):null,trainLoc:loc};
-  saveData();updateStats();showToast('保存しました');
-});
-function renderCalendar(){
-  document.getElementById('calTitle').textContent=calYear+'年'+calMonth+'月';
-  var grid=document.getElementById('calGrid');grid.innerHTML='';
-  ['日','月','火','水','木','金','土'].forEach(function(d){grid.innerHTML+='<div class="cal-day-header">'+d+'</div>'});
-  var firstDay=new Date(calYear,calMonth-1,1).getDay(),daysInMonth=new Date(calYear,calMonth,0).getDate(),today=getToday();
-  for(var i=0;i<firstDay;i++)grid.innerHTML+='<div class="cal-cell"></div>';
-  for(var d=1;d<=daysInMonth;d++){
-    var key=calYear+'-'+S(calMonth)+'-'+S(d),rec=data.records[key],loc=rec?rec.trainLoc:null;
-    var cls='cal-cell';if(key===today)cls+=' today';if(key===selectedDate)cls+=' selected';
-    var inner='<span class="day-num" style="color:'+(data.weights[key]&&data.weights[key].length>0?'#22c55e':'#ddd')+'">'+d+'</span>';
-    if(loc==='gym')inner+='<span class="cal-tag" style="color:#ff69b4">GYM</span>';
-    else if(loc==='home')inner+='<span class="cal-tag" style="color:#facc15">HOME</span>';
-    if(rec&&rec.weight)inner+='<span class="cal-wt">'+rec.weight+'</span>';
-    var cell=document.createElement('div');cell.className=cls;cell.innerHTML=inner;
-    (function(k){cell.addEventListener('click',function(){selectedDate=k;loadRecordForm();document.querySelectorAll('.tab-btn')[0].click()})})(key);
-    grid.appendChild(cell);
-  }
-}
+document.querySelectorAll('.train-btn').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.train-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active')})});
+document.getElementById('saveRecord').addEventListener('click',function(){var w=document.getElementById('recWeight').value,bh=document.getElementById('recBpHigh').value,bl=document.getElementById('recBpLow').value,hr=document.getElementById('recHr').value;
+var gl=document.getElementById('recGripL').value,gr=document.getElementById('recGripR').value;
+var loc=document.querySelector('.train-btn.active').dataset.loc;var isNew=!data.records[selectedDate];
+data.records[selectedDate]={weight:w?parseFloat(w):null,bpHigh:bh?parseInt(bh):null,bpLow:bl?parseInt(bl):null,heartRate:hr?parseInt(hr):null,gripL:gl?parseFloat(gl):null,gripR:gr?parseFloat(gr):null,trainLoc:loc};
+saveHD();updateStats();updateHeader();if(isNew)changeXP(10);showToast('保存しました')});
+
+function renderCalendar(){document.getElementById('calTitle').textContent=calYear+'年'+calMonth+'月';var grid=document.getElementById('calGrid');grid.innerHTML='';
+['月','火','水','木','金','土','日'].forEach(function(d){grid.innerHTML+='<div class="cal-day-header">'+d+'</div>'});
+var firstDay=new Date(calYear,calMonth-1,1).getDay(),daysInMonth=new Date(calYear,calMonth,0).getDate(),today=getToday();
+var mondayFirst=(firstDay+6)%7;
+for(var i=0;i<mondayFirst;i++)grid.innerHTML+='<div class="cal-cell"></div>';
+for(var d=1;d<=daysInMonth;d++){var key=calYear+'-'+S(calMonth)+'-'+S(d),rec=data.records[key],qd=quest[key],loc=rec?rec.trainLoc:null;
+var cls='cal-cell';if(key===today)cls+=' today';if(key===selectedDate)cls+=' selected';
+var inner='<span class="day-num" style="color:'+((rec&&rec.weight)||(qd&&qd.xpEarned>0)?'var(--green)':'#ddd')+'">'+d+'</span>';
+if(loc==='gym')inner+='<span class="cal-tag" style="color:var(--pink)">GYM</span>';
+else if(loc==='home')inner+='<span class="cal-tag" style="color:var(--yellow)">HOME</span>';
+if(!loc&&qd&&qd.walkSteps&&qd.walkSteps>0){inner+='<span class="cal-tag" style="color:var(--purple)">'+qd.walkSteps+'K</span>'}
+if(rec&&rec.weight)inner+='<span class="cal-wt">'+rec.weight+'</span>';
+var cell=document.createElement('div');cell.className=cls;cell.innerHTML=inner;
+(function(k){cell.addEventListener('click',function(){selectedDate=k;loadRecordForm();document.querySelectorAll('.tab-btn')[1].click()})})(key);grid.appendChild(cell)}}
 document.getElementById('calPrev').addEventListener('click',function(){calMonth--;if(calMonth<1){calMonth=12;calYear--}renderCalendar()});
 document.getElementById('calNext').addEventListener('click',function(){calMonth++;if(calMonth>12){calMonth=1;calYear++}renderCalendar()});
+
 function hexToRgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')'}
-function renderChart(){
-  var canvas=document.getElementById('chart'),dpr=window.devicePixelRatio||1;
-  var wrap=canvas.parentElement,W=wrap.clientWidth-16,H=250;
-  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
-  var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-  var today=new Date(),allDates=[];
-  for(var i=graphRange-1;i>=0;i--){var dd=new Date(today);dd.setDate(dd.getDate()-i);allDates.push(dd.getFullYear()+'-'+S(dd.getMonth()+1)+'-'+S(dd.getDate()))}
-  var series=[],legendEl=document.getElementById('legend');legendEl.innerHTML='';
-  if(graphType==='weight'){series=[{label:'体重',color:'#22c55e',data:allDates.map(function(k){var r=data.records[k];return r&&r.weight!=null?r.weight:null})}]}
-  else if(graphType==='bp'){series=[{label:'最高血圧',color:'#ef4444',data:allDates.map(function(k){var r=data.records[k];return r&&r.bpHigh!=null?r.bpHigh:null})},{label:'最低血圧',color:'#3b82f6',data:allDates.map(function(k){var r=data.records[k];return r&&r.bpLow!=null?r.bpLow:null})}]}
-  else{series=[{label:'心拍数',color:'#10b981',data:allDates.map(function(k){var r=data.records[k];return r&&r.heartRate!=null?r.heartRate:null})}]}
-  if(graphType==='grip'){series=[
-    {label:'握力 左',color:'#a78bfa',data:allDates.map(function(k){var r=data.records[k];return r&&r.gripL!=null?r.gripL:null})},
-    {label:'握力 右',color:'#f472b6',data:allDates.map(function(k){var r=data.records[k];return r&&r.gripR!=null?r.gripR:null})}
-  ]}
-  series.forEach(function(s){legendEl.innerHTML+='<div class="legend-item"><span class="legend-dot" style="background:'+s.color+'"></span>'+s.label+'</div>'});
-  var allVals=[];series.forEach(function(s){s.data.forEach(function(v){if(v!==null)allVals.push(v)})});
-  if(allVals.length===0){ctx.fillStyle='#666';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('データがありません',W/2,H/2);return}
-  var minVal=Math.min.apply(null,allVals),maxVal=Math.max.apply(null,allVals);
-  if(minVal===maxVal){minVal-=5;maxVal+=5}
-  var pad=Math.max((maxVal-minVal)*0.1,1);minVal-=pad;maxVal+=pad;
-  var mL=45,mR=15,mT=15,mB=35,pW=W-mL-mR,pH=H-mT-mB,ySteps=5;
-  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;ctx.fillStyle='#888';ctx.font='10px sans-serif';ctx.textAlign='right';
-  for(var i=0;i<=ySteps;i++){var y=mT+pH-(pH/ySteps)*i,val=minVal+((maxVal-minVal)/ySteps)*i;ctx.beginPath();ctx.moveTo(mL,y);ctx.lineTo(W-mR,y);ctx.stroke();ctx.fillText(Math.round(val*10)/10,mL-6,y+4)}
-  ctx.textAlign='center';ctx.fillStyle='#888';
-  var labelCount=Math.min(allDates.length,7),step=Math.max(1,Math.floor(allDates.length/labelCount));
-  for(var i=0;i<allDates.length;i+=step){var x=mL+(pW/(allDates.length-1||1))*i;ctx.fillText(formatDate(allDates[i]),x,H-8)}
-  series.forEach(function(s){
-    ctx.strokeStyle=s.color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
-    var points=[];s.data.forEach(function(v,i){if(v===null)return;var x=mL+(pW/(allDates.length-1||1))*i,y=mT+pH-(((v-minVal)/(maxVal-minVal))*pH);points.push({x:x,y:y})});
-    if(points.length<2)return;
-    ctx.beginPath();points.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.stroke();
-    ctx.fillStyle=hexToRgba(s.color,0.08);ctx.beginPath();ctx.moveTo(points[0].x,mT+pH);points.forEach(function(p){ctx.lineTo(p.x,p.y)});ctx.lineTo(points[points.length-1].x,mT+pH);ctx.closePath();ctx.fill();
-    ctx.fillStyle=s.color;points.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill()});
-  });
-}
+function renderChart(){var canvas=document.getElementById('chart'),dpr=window.devicePixelRatio||1,wrap=canvas.parentElement,W=wrap.clientWidth-16,H=250;
+canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+var today=new Date(),allDates=[];for(var i=graphRange-1;i>=0;i--){var dd=new Date(today);dd.setDate(dd.getDate()-i);allDates.push(dd.getFullYear()+'-'+S(dd.getMonth()+1)+'-'+S(dd.getDate()))}
+var series=[],legendEl=document.getElementById('legend');legendEl.innerHTML='';
+if(graphType==='weight')series=[{label:'体重',color:'#22c55e',data:allDates.map(function(k){var r=data.records[k];return r&&r.weight!=null?r.weight:null})}];
+else if(graphType==='bp')series=[{label:'最高血圧',color:'#ef4444',data:allDates.map(function(k){var r=data.records[k];return r&&r.bpHigh!=null?r.bpHigh:null})},{label:'最低血圧',color:'#3b82f6',data:allDates.map(function(k){var r=data.records[k];return r&&r.bpLow!=null?r.bpLow:null})}];
+else if(graphType==='grip')series=[{label:'握力 左',color:'#ff69b4',data:allDates.map(function(k){var r=data.records[k];return r&&r.gripL!=null?r.gripL:null})},{label:'握力 右',color:'#facc15',data:allDates.map(function(k){var r=data.records[k];return r&&r.gripR!=null?r.gripR:null})}];
+else series=[{label:'心拍数',color:'#10b981',data:allDates.map(function(k){var r=data.records[k];return r&&r.heartRate!=null?r.heartRate:null})}];
+series.forEach(function(s){legendEl.innerHTML+='<div class="legend-item"><span class="legend-dot" style="background:'+s.color+'"></span>'+s.label+'</div>'});
+var allVals=[];series.forEach(function(s){s.data.forEach(function(v){if(v!==null)allVals.push(v)})});
+if(allVals.length===0){ctx.fillStyle='#666';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('データがありません',W/2,H/2);return}
+var minVal=Math.min.apply(null,allVals),maxVal=Math.max.apply(null,allVals);if(minVal===maxVal){minVal-=5;maxVal+=5}
+var pad=Math.max((maxVal-minVal)*0.1,1);minVal-=pad;maxVal+=pad;
+var mL=45,mR=15,mT=15,mB=35,pW=W-mL-mR,pH=H-mT-mB,ySteps=5;
+ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;ctx.fillStyle='#888';ctx.font='10px sans-serif';ctx.textAlign='right';
+for(var i=0;i<=ySteps;i++){var y=mT+pH-(pH/ySteps)*i,val=minVal+((maxVal-minVal)/ySteps)*i;ctx.beginPath();ctx.moveTo(mL,y);ctx.lineTo(W-mR,y);ctx.stroke();ctx.fillText(Math.round(val*10)/10,mL-6,y+4)}
+ctx.textAlign='center';ctx.fillStyle='#888';var labelCount=Math.min(allDates.length,7),step=Math.max(1,Math.floor(allDates.length/labelCount));
+for(var i=0;i<allDates.length;i+=step){var x=mL+(pW/(allDates.length-1||1))*i;ctx.fillText(formatDate(allDates[i]),x,H-8)}
+series.forEach(function(s){ctx.strokeStyle=s.color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
+var points=[];s.data.forEach(function(v,i){if(v===null)return;var x=mL+(pW/(allDates.length-1||1))*i,y=mT+pH-(((v-minVal)/(maxVal-minVal))*pH);points.push({x:x,y:y})});
+if(points.length<2)return;ctx.beginPath();points.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.stroke();
+ctx.fillStyle=hexToRgba(s.color,0.08);ctx.beginPath();ctx.moveTo(points[0].x,mT+pH);points.forEach(function(p){ctx.lineTo(p.x,p.y)});ctx.lineTo(points[points.length-1].x,mT+pH);ctx.closePath();ctx.fill();
+ctx.fillStyle=s.color;points.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill()})})}
 document.getElementById('graphTypeBtns').addEventListener('click',function(e){var btn=e.target.closest('.graph-btn');if(!btn)return;graphType=btn.dataset.type;document.querySelectorAll('#graphTypeBtns .graph-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');renderChart()});
 document.getElementById('graphRangeBtns').addEventListener('click',function(e){var btn=e.target.closest('.graph-btn');if(!btn)return;graphRange=+btn.dataset.range;document.querySelectorAll('#graphRangeBtns .graph-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');renderChart()});
-function initExerciseSelect(){
-  var sel=document.getElementById('wtExercise');
-  EXERCISES.forEach(function(ex){var o=document.createElement('option');o.value=ex;o.textContent=ex;sel.appendChild(o)});
-  var c=document.createElement('option');c.value='__custom__';c.textContent='その他（入力）';sel.appendChild(c);
-  sel.addEventListener('change',function(){document.getElementById('wtCustomWrap').style.display=sel.value==='__custom__'?'':'none'});
-}
-function renderWtList(){
-  var date=document.getElementById('wtDate').value||selectedDate,list=document.getElementById('wtList'),entries=data.weights[date];
-  if(!entries||entries.length===0){list.innerHTML='';return}
-  list.innerHTML='<div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:10px">'+formatDate(date)+' のウェイト記録</div>';
-  entries.forEach(function(e,i){
-    var item=document.createElement('div');item.className='wt-item';
-    item.innerHTML='<div><div class="wt-name">'+e.name+'</div><div class="wt-detail">'+e.weight+'kg × '+e.sets+'セット × '+e.reps+'レップ</div></div><button class="wt-del" data-idx="'+i+'">✕</button>';
-    list.appendChild(item);
-  });
-  list.querySelectorAll('.wt-del').forEach(function(btn){btn.addEventListener('click',function(){var idx=+btn.dataset.idx;data.weights[date].splice(idx,1);if(data.weights[date].length===0)delete data.weights[date];saveData();renderWtList()})});
-}
+
+function initExerciseSelect(){var sel=document.getElementById('wtExercise');EXERCISES.forEach(function(ex){if(ex==='---'){var o=document.createElement('option');o.disabled=true;o.textContent='───────';sel.appendChild(o)}else{var o=document.createElement('option');o.value=ex;o.textContent=ex;sel.appendChild(o)}});
+var d=document.createElement('option');d.value='__custom__';d.textContent='その他（入力）';sel.appendChild(d);
+sel.addEventListener('change',function(){document.getElementById('wtCustomWrap').style.display=sel.value==='__custom__'?'':'none'})}
+function renderWtList(){var date=document.getElementById('wtDate').value||selectedDate,list=document.getElementById('wtList'),entries=data.weights[date];
+if(!entries||entries.length===0){list.innerHTML='';return}
+list.innerHTML='<div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:10px">'+formatDate(date)+' のウェイト記録</div>';
+entries.forEach(function(e,i){var item=document.createElement('div');item.className='wt-item';
+item.innerHTML='<div><div class="wt-name">'+e.name+'</div><div class="wt-detail">'+e.weight+'kg x '+e.sets+'set x '+e.reps+'rep</div></div><button class="wt-del" data-idx="'+i+'">x</button>';list.appendChild(item)});
+list.querySelectorAll('.wt-del').forEach(function(btn){btn.addEventListener('click',function(){var idx=+btn.dataset.idx;data.weights[date].splice(idx,1);if(data.weights[date].length===0)delete data.weights[date];saveHD();renderWtList()})})}
 document.getElementById('wtDate').addEventListener('change',renderWtList);
-document.getElementById('addWeight').addEventListener('click',function(){
-  var date=document.getElementById('wtDate').value||selectedDate,sel=document.getElementById('wtExercise');
-  var name=sel.value==='__custom__'?document.getElementById('wtCustom').value:sel.value;
-  var w=document.getElementById('wtWeight').value,s=document.getElementById('wtSets').value,r=document.getElementById('wtReps').value;
-  if(!name||!w||!s||!r){showToast('全て入力してください');return}
-  if(!data.weights[date])data.weights[date]=[];
-  data.weights[date].push({name:name,weight:parseFloat(w),sets:parseInt(s),reps:parseInt(r)});
-  saveData();document.getElementById('wtWeight').value='';document.getElementById('wtSets').value='';document.getElementById('wtReps').value='';
-  renderWtList();showToast('追加しました');
-});
-document.getElementById('exportBtn').addEventListener('click',function(){
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='health-tracker-'+getToday()+'.json';a.click();URL.revokeObjectURL(a.href);showToast('書き出し完了');
-});
-document.getElementById('importBtn').addEventListener('change',function(e){
-  var file=e.target.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(ev){try{var imp=JSON.parse(ev.target.result);if(imp.records&&imp.weights){data=imp;saveData();updateStats();loadRecordForm();showToast('読み込み完了')}else showToast('無効なファイル')}catch(x){showToast('読み込みエラー')}};
-  reader.readAsText(file);e.target.value='';
-});
-document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('全データをリセットしますか？')){data={records:{},weights:{}};saveData();updateStats();loadRecordForm();showToast('リセットしました')}});
-(function init(){
-  loadData();var now=new Date();calYear=now.getFullYear();calMonth=now.getMonth()+1;
-  initExerciseSelect();loadRecordForm();updateStats();document.getElementById('wtDate').value=selectedDate;
-})();
+document.getElementById('addWeight').addEventListener('click',function(){var date=document.getElementById('wtDate').value||selectedDate,sel=document.getElementById('wtExercise');
+var name=sel.value==='__custom__'?document.getElementById('wtCustom').value:sel.value;
+var w=document.getElementById('wtWeight').value,s=document.getElementById('wtSets').value,r=document.getElementById('wtReps').value;
+if(!name||!w||!s||!r){showToast('全て入力してください');return}
+if(!data.weights[date])data.weights[date]=[];data.weights[date].push({name:name,weight:parseFloat(w),sets:parseInt(s),reps:parseInt(r)});
+saveHD();document.getElementById('wtWeight').value='';document.getElementById('wtSets').value='';document.getElementById('wtReps').value='';renderWtList();showToast('追加しました')});
+
+document.getElementById('exportBtn').addEventListener('click',function(){var all={records:data.records,weights:data.weights,quest:quest,profile:profile,exported:new Date().toISOString()};
+var blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='health-tracker-'+getToday()+'.json';a.click();URL.revokeObjectURL(a.href);showToast('書き出し完了')});
+document.getElementById('importBtn').addEventListener('change',function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();
+reader.onload=function(ev){try{var imp=JSON.parse(ev.target.result);if(imp.records){data={records:imp.records,weights:imp.weights||{}};saveHD()}if(imp.quest){quest=imp.quest;saveQuest()}if(imp.profile){profile=imp.profile;saveProfile()}updateAll();showToast('読み込み完了')}catch(x){showToast('読み込みエラー')}};reader.readAsText(file);e.target.value=''});
+document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('全データをリセットしますか？')){data={records:{},weights:{}};quest={};profile={xp:0,level:1,totalXP:0,maxStreak:0};saveHD();saveQuest();saveProfile();updateAll();showToast('リセットしました')}});
+
+function updateAll(){updateHeader();updateQuest();updateStats();loadRecordForm()}
+(function init(){loadAll();var now=new Date();calYear=now.getFullYear();calMonth=now.getMonth()+1;initExerciseSelect();updateAll();document.getElementById('wtDate').value=selectedDate})();
 </script>
 </body>
 </html>
