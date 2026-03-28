@@ -324,9 +324,10 @@ data.records[selectedDate]={weight:w?parseFloat(w):null,bpHigh:bh?parseInt(bh):n
 saveHD();updateStats();updateHeader();if(isNew)changeXP(10);showToast('保存しました')});
 
 function renderCalendar(){document.getElementById('calTitle').textContent=calYear+'年'+calMonth+'月';var grid=document.getElementById('calGrid');grid.innerHTML='';
-['日','月','火','水','木','金','土'].forEach(function(d){grid.innerHTML+='<div class="cal-day-header">'+d+'</div>'});
+['月','火','水','木','金','土','日'].forEach(function(d){grid.innerHTML+='<div class="cal-day-header">'+d+'</div>'});
 var firstDay=new Date(calYear,calMonth-1,1).getDay(),daysInMonth=new Date(calYear,calMonth,0).getDate(),today=getToday();
-for(var i=0;i<firstDay;i++)grid.innerHTML+='<div class="cal-cell"></div>';
+var mondayFirst=(firstDay+6)%7;
+for(var i=0;i<mondayFirst;i++)grid.innerHTML+='<div class="cal-cell"></div>';
 for(var d=1;d<=daysInMonth;d++){var key=calYear+'-'+S(calMonth)+'-'+S(d),rec=data.records[key],qd=quest[key],loc=rec?rec.trainLoc:null;
 var cls='cal-cell';if(key===today)cls+=' today';if(key===selectedDate)cls+=' selected';
 var inner='<span class="day-num" style="color:'+((rec&&rec.weight)||(qd&&qd.xpEarned>0)?'var(--green)':'#ddd')+'">'+d+'</span>';
